@@ -10,10 +10,13 @@ namespace ServerIntellectus
     class Program
     {
         static String version = "1.0";
+
         static void Main(string[] args)
         {
             ImprimirConColor("                             Servidor Intellectus              ", ConsoleColor.Blue);
             ImprimirConColor("                                 Version " + version, ConsoleColor.White);
+
+            Server server = new Server(8001);
 
             Console.ReadLine();
         }
