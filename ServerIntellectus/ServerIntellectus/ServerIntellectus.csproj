@@ -51,5 +51,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IntellectusMensajes\IntellectusMensajes.csproj">
+      <Project>{e55240e7-07be-4c5d-a5e5-e303320bc87f}</Project>
+      <Name>IntellectusMensajes</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
