@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ServerIntellectus
@@ -11,10 +12,15 @@ namespace ServerIntellectus
     public class Server
     {
         private Socket SocketServer;
-        IPEndPoint localEndPoint;
-
+        private IPEndPoint localEndPoint;
+        private List<Cliente> lClientes;
+        private bool boolEscucharConexionesEntrantes;
+        private Thread threadEscucharConexionesEntrantes; 
         public Server(String IP,int puerto)
         {
+            boolEscucharConexionesEntrantes = true;
+
+            lClientes = new List<Cliente>();
             SocketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             try
@@ -36,6 +42,28 @@ namespace ServerIntellectus
                 Console.WriteLine(ex.Message);
             }
 
+        }
+
+        public void Iniciar()
+        {
+            threadEscucharConexionesEntrantes = new Thread(this.EscucharConexionesEntrantes);
+            threadEscucharConexionesEntrantes.Start();
+            
+        }
+
+        private void EscucharConexionesEntrantes()
+        {
+            while(boolEscucharConexionesEntrantes)
+            {
+                Socket socket = SocketServer.Accept();
+
+                Cliente cliente = new Cliente() { Estado = Cliente.EstadoCliente.NOLOGUEADO, socketCliente = socket, ID = -1 };
+
+                lock(lClientes)
+                {
+                    lClientes.Add(cliente);
+                }
+            }
         }
     }
 }
