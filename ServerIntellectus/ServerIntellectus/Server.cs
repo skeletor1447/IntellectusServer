@@ -15,10 +15,13 @@ namespace ServerIntellectus
         private IPEndPoint localEndPoint;
         private List<Cliente> lClientes;
         private bool boolEscucharConexionesEntrantes;
-        private Thread threadEscucharConexionesEntrantes; 
+        private bool boolObtenerPeticiones;
+        private Thread threadEscucharConexionesEntrantes;
+        private Thread threadObtenerPeticiones;
         public Server(String IP,int puerto)
         {
             boolEscucharConexionesEntrantes = true;
+            boolObtenerPeticiones = true;
 
             lClientes = new List<Cliente>();
             SocketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -47,8 +50,27 @@ namespace ServerIntellectus
         public void Iniciar()
         {
             threadEscucharConexionesEntrantes = new Thread(this.EscucharConexionesEntrantes);
+            threadObtenerPeticiones = new Thread(this.ObtenerPeticiones);
             threadEscucharConexionesEntrantes.Start();
+            threadObtenerPeticiones.Start();
             
+        }
+
+        private void ObtenerPeticiones()
+        {
+            while(boolObtenerPeticiones)
+            {
+                lock(lClientes)
+                {
+                    foreach(var cliente in lClientes)
+                    {
+                        if(cliente.socketCliente.Available > 0)
+                        {
+
+                        }
+                    }
+                }
+            }
         }
 
         private void EscucharConexionesEntrantes()
@@ -63,6 +85,7 @@ namespace ServerIntellectus
                 {
                     lClientes.Add(cliente);
                 }
+                
             }
         }
     }
