@@ -66,7 +66,9 @@ namespace ServerIntellectus
                     {
                         if(cliente.socketCliente.Available > 0)
                         {
+                            int numero = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
 
+                            Console.WriteLine(numero);
                         }
                     }
                 }
@@ -85,10 +87,6 @@ namespace ServerIntellectus
                 {
                     lClientes.Add(cliente);
                 }
-
-                int numero = IntellectusSocketIO.SocketIO.ReadInt(socket);
-
-                Console.WriteLine(numero);
             }
         }
     }
