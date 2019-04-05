@@ -5,12 +5,21 @@ namespace IntellectusSocketIO
 {
     public class SocketIO
     {
-        /// <summary>Envía un entero de 32 bits al socket destino.</summary>
-        /// <param name="socket"> Socket destino, donde se enviará un entero de 32 bits.</param>
-        /// <param name="numero"> Entero que se enviará al socket destino.</param>
-        public static void ReadInt(Socket socket, int numero)
+        /// <summary>Lee un entero de 32 bits del socket remoto.</summary>
+        /// <param name="socket"> Socket remoto, donde se leerá un entero de 32 bits.</param>
+        
+        public static int ReadInt(Socket socket)
         {
-            socket.Receive(BitConverter.GetBytes(numero),sizeof(Int32),SocketFlags.None);
+            byte[] buffer = new byte[sizeof(Int32)];
+
+            socket.Receive(buffer,sizeof(Int32),SocketFlags.None);
+
+            return BitConverter.ToInt32(buffer,0);
+        }
+
+        public static void WriteInt(Socket socket, int numero)
+        {
+            socket.Send(BitConverter.GetBytes(numero), sizeof(Int32), SocketFlags.None);
         }
     }
 }
