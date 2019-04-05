@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28307.438
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerIntellectus", "ServerIntellectus\ServerIntellectus.csproj", "{D8184096-6411-4BFE-B26B-6511B0EADE33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntellectusMensajes", "IntellectusMensajes\IntellectusMensajes.csproj", "{E55240E7-07BE-4C5D-A5E5-E303320BC87F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntellectusMensajes", "IntellectusMensajes\IntellectusMensajes.csproj", "{E55240E7-07BE-4C5D-A5E5-E303320BC87F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntellectusSocketIO", "IntellectusSocketIO\IntellectusSocketIO.csproj", "{1CCB1EE0-CAF1-4AAB-A84B-0D1356F11039}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E55240E7-07BE-4C5D-A5E5-E303320BC87F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E55240E7-07BE-4C5D-A5E5-E303320BC87F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E55240E7-07BE-4C5D-A5E5-E303320BC87F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CCB1EE0-CAF1-4AAB-A84B-0D1356F11039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CCB1EE0-CAF1-4AAB-A84B-0D1356F11039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CCB1EE0-CAF1-4AAB-A84B-0D1356F11039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CCB1EE0-CAF1-4AAB-A84B-0D1356F11039}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
