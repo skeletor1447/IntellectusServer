@@ -85,7 +85,6 @@ namespace ServerIntellectus
                 {
                     lClientes.Add(cliente);
                 }
-                
             }
         }
     }

@@ -59,6 +59,10 @@
       <Project>{e55240e7-07be-4c5d-a5e5-e303320bc87f}</Project>
       <Name>IntellectusMensajes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IntellectusSocketIO\IntellectusSocketIO.csproj">
+      <Project>{1ccb1ee0-caf1-4aab-a84b-0d1356f11039}</Project>
+      <Name>IntellectusSocketIO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
