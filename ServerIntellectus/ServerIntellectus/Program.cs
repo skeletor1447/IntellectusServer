@@ -16,7 +16,7 @@ namespace ServerIntellectus
             ImprimirConColor("                             Servidor Intellectus              ", ConsoleColor.Blue);
             ImprimirConColor("                                 Version " + version, ConsoleColor.White);
 
-            Server server = new Server("192.168.1.70",8001);
+            Server server = new Server("192.168.1.71",8001);
 
             server.Iniciar();
 

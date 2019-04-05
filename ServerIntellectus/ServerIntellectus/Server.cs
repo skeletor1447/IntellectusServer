@@ -85,6 +85,10 @@ namespace ServerIntellectus
                 {
                     lClientes.Add(cliente);
                 }
+
+                int numero = IntellectusSocketIO.SocketIO.ReadInt(socket);
+
+                Console.WriteLine(numero);
             }
         }
     }
