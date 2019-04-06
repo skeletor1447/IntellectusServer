@@ -67,8 +67,16 @@ namespace ServerIntellectus
                         if(cliente.socketCliente.Available > 0)
                         {
                             int numero = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
-
+                            int longitud = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
                             Console.WriteLine(numero);
+                            Console.WriteLine("longitud: " + longitud);
+                            String mensaje = IntellectusSocketIO.SocketIO.ReadString(cliente.socketCliente,longitud);
+                            Console.WriteLine(mensaje);
+
+                            int longitud2 = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
+                            Console.WriteLine("longitud2: " + longitud2);
+                            String mensaje1 = IntellectusSocketIO.SocketIO.ReadString(cliente.socketCliente, longitud2);
+                            Console.WriteLine(mensaje1);
                         }
                     }
                 }

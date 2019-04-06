@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Text;
 
 namespace IntellectusSocketIO
 {
@@ -26,7 +27,7 @@ namespace IntellectusSocketIO
         /// <summary>Lee un entero de 32 bits del socket remoto.</summary>
         /// <param name="socket"> Socket remoto, donde se leerá una longitud de bytes.</param>
         /// <param name="longitud"> Entero que indica cuantos bytes se deben de leer del socket remoto.</param>
-        public static String Read(Socket socket,int longitud)
+        public static String ReadString(Socket socket,int longitud)
         {
             byte[] buffer = new byte[longitud];
             int bytesLeidos = 0;
@@ -42,7 +43,7 @@ namespace IntellectusSocketIO
             if (bytesLeidosTotal != longitud)
                 throw new Exception("Error al completar la lectura de los bytes, posible desconexion.");
 
-            return BitConverter.ToString(buffer);
+            return Encoding.UTF8.GetString(buffer);
         }
         /// <summary>Lee un entero de 32 bits del socket remoto.</summary>
         /// <param name="socket"> Socket remoto, donde se enviará una longitud de bytes.</param>
