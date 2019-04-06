@@ -57,6 +57,8 @@ namespace ServerIntellectus
             
         }
 
+       
+
         private void ObtenerPeticiones()
         {
             while(boolObtenerPeticiones)
@@ -67,13 +69,23 @@ namespace ServerIntellectus
                     {
                         if(cliente.socketCliente.Available > 0)
                         {
-                            int numero = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
+                            int paquete = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
                             int longitud = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
                             String mensaje = IntellectusSocketIO.SocketIO.ReadString(cliente.socketCliente,longitud);
 
                             IntellectusMensajes.LoginPeticion loginPeticion = JsonConvert.DeserializeObject<IntellectusMensajes.LoginPeticion>(mensaje);
+                            ProcesarPaquete.IProcesarPaquete procesarPaquete = null;
+                            switch(paquete)
+                            {
+                                case (int)IntellectusMensajes.Paquete.LOGIN:
+                                    procesarPaquete = new ProcesarPaquete.PLoginRespuesta(cliente,loginPeticion);
+                                    break;
+                            }
 
-                                                
+                            if(procesarPaquete != null)
+                                procesarPaquete.ProcesarPaquete();
+                            else
+                                Console.WriteLine("no hay ningun paquete para procesar");
                         }
                     }
                 }
