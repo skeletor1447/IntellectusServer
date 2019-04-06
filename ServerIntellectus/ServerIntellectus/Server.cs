@@ -56,8 +56,7 @@ namespace ServerIntellectus
             threadObtenerPeticiones.Start();
             
         }
-
-       
+        
 
         private void ObtenerPeticiones()
         {
@@ -69,27 +68,43 @@ namespace ServerIntellectus
                     {
                         if(cliente.socketCliente.Available > 0)
                         {
-                            int paquete = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
-                            int longitud = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
-                            String mensaje = IntellectusSocketIO.SocketIO.ReadString(cliente.socketCliente,longitud);
-
-                            IntellectusMensajes.LoginPeticion loginPeticion = JsonConvert.DeserializeObject<IntellectusMensajes.LoginPeticion>(mensaje);
-                            ProcesarPaquete.IProcesarPaquete procesarPaquete = null;
-                            switch(paquete)
+                            try
                             {
-                                case (int)IntellectusMensajes.Paquete.LOGIN:
-                                    procesarPaquete = new ProcesarPaquete.PLoginRespuesta(cliente,loginPeticion);
-                                    break;
+                                ProcesarPaquete.IProcesarPaquete procesarPaquete = ObtenerPaqueteCompleto(cliente);
+                                if (procesarPaquete != null)
+                                    procesarPaquete.ProcesarPaquete();
+                                else
+                                    Console.WriteLine("No hay ningun paquete para procesar");
                             }
-
-                            if(procesarPaquete != null)
-                                procesarPaquete.ProcesarPaquete();
-                            else
-                                Console.WriteLine("no hay ningun paquete para procesar");
+                            catch(SocketException se)//cliente desconectado
+                            {
+                                lClientes.Remove(cliente);
+                            }
+                            catch(Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
                         }
                     }
                 }
             }
+        }
+
+        private ProcesarPaquete.IProcesarPaquete ObtenerPaqueteCompleto(Cliente cliente)
+        {
+            int paquete = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
+            int longitud = IntellectusSocketIO.SocketIO.ReadInt(cliente.socketCliente);
+            String mensaje = IntellectusSocketIO.SocketIO.ReadString(cliente.socketCliente, longitud);
+
+            switch (paquete)
+            {
+                case (int)IntellectusMensajes.Paquete.LOGIN:
+                    IntellectusMensajes.LoginPeticion loginPeticion = JsonConvert.DeserializeObject<IntellectusMensajes.LoginPeticion>(mensaje);
+                    return new ProcesarPaquete.PLoginRespuesta(cliente, loginPeticion);
+                    
+            }
+
+            return null;
         }
 
         private void EscucharConexionesEntrantes()
