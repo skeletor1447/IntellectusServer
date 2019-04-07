@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,8 +14,8 @@ namespace ServerIntellectus
 
         static void Main(string[] args)
         {
-            ImprimirConColor("                             Servidor Intellectus              ", ConsoleColor.Blue);
-            ImprimirConColor("                                 Version " + version, ConsoleColor.White);
+            Utileria.ImprimirConColor("                             Servidor Intellectus              ", ConsoleColor.Blue);
+            Utileria.ImprimirConColor("                                 Version " + version, ConsoleColor.White);
 
             if (args.Length > 0)
             {
@@ -23,10 +24,12 @@ namespace ServerIntellectus
                     int puerto = int.Parse(args[0]);
                     try
                     {
-                        ImprimirConColor("Iniciando servidor...", ConsoleColor.Green);
+                        Utileria.ImprimirConColor("Iniciando servidor...", ConsoleColor.Green);
                         Server server = new Server(puerto);
                         server.Iniciar();
-                        ImprimirConColor("Servidor iniciado correctamente.", ConsoleColor.Green);
+                        Utileria.ImprimirConColor("Servidor iniciado correctamente.", ConsoleColor.Green);
+                        Console.WriteLine();
+                        Utileria.ImprimirConColor("Servidor corriendo en la IP: " + ((IPEndPoint)server.SocketServer.LocalEndPoint).Address.ToString() +" con el Puerto: "+ ((IPEndPoint)server.SocketServer.LocalEndPoint).Port.ToString(), ConsoleColor.White);
                     }
                     catch(Exception ex)
                     {
@@ -44,11 +47,6 @@ namespace ServerIntellectus
         }
 
 
-        static void ImprimirConColor(String cadena, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine(cadena);
-            Console.ResetColor();
-        }
+        
     }
 }

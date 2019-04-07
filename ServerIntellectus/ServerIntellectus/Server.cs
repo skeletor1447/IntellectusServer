@@ -12,7 +12,7 @@ namespace ServerIntellectus
 {
     public class Server
     {
-        private Socket SocketServer;
+        public Socket SocketServer;
         private IPEndPoint localEndPoint;
         private List<Cliente> lClientes;
         private bool boolEscucharConexionesEntrantes;
@@ -29,7 +29,7 @@ namespace ServerIntellectus
 
             try
             {
-                localEndPoint = new IPEndPoint(IPAddress.Any, puerto);
+                localEndPoint = new IPEndPoint(Utileria.ObtenerIPV4(), puerto);
             }
             catch(Exception ex)
             {
@@ -40,6 +40,8 @@ namespace ServerIntellectus
             {
                 SocketServer.Bind(localEndPoint);
                 SocketServer.Listen((int)SocketOptionName.MaxConnections);
+               
+                
             }
             catch(Exception ex)
             {
