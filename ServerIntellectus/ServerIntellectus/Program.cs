@@ -29,7 +29,8 @@ namespace ServerIntellectus
                         server.Iniciar();
                         Utileria.ImprimirConColor("Servidor iniciado correctamente.", ConsoleColor.Green);
                         Console.WriteLine();
-                        Utileria.ImprimirConColor("Servidor corriendo en la IP: " + ((IPEndPoint)server.SocketServer.LocalEndPoint).Address.ToString() +" con el Puerto: "+ ((IPEndPoint)server.SocketServer.LocalEndPoint).Port.ToString(), ConsoleColor.White);
+                        Utileria.ImprimirConColor("Servidor corriendo en la IP: " + ((IPEndPoint)server.SocketServer.LocalEndPoint).Address.ToString() +" en el Puerto: "+ ((IPEndPoint)server.SocketServer.LocalEndPoint).Port.ToString(), ConsoleColor.White);
+                        Console.WriteLine();
                     }
                     catch(Exception ex)
                     {

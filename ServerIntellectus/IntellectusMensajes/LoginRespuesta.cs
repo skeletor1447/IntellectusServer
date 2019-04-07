@@ -8,7 +8,7 @@ namespace IntellectusMensajes
     {
         public int VERSION { get; set; }
         public int ID { get; set; }
-        public int ESTADO { get; set; }
+        public EstadoLogin ESTADO { get; set; }
         public String Mensaje { get; set; }
     }
 }

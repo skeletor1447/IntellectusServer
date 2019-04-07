@@ -21,7 +21,7 @@ namespace ServerIntellectus.ProcesarPaquete
         {
             //logica logueo de usuario
 
-            IntellectusMensajes.LoginRespuesta loginRespuesta = new IntellectusMensajes.LoginRespuesta() { VERSION = 1, ID = 1001, ESTADO = (int)IntellectusMensajes.EstadoLogin.NOLOGUEADO, Mensaje = "no se ha podido loguear, ya existe un cliente conectado." };
+            IntellectusMensajes.LoginRespuesta loginRespuesta = new IntellectusMensajes.LoginRespuesta() { VERSION = 1, ID = 1001, ESTADO = IntellectusMensajes.EstadoLogin.NOLOGUEADO, Mensaje = "no se ha podido loguear, ya existe un cliente conectado." };
 
             String mensajeAEnviar = JsonConvert.SerializeObject(loginRespuesta);
 

@@ -120,6 +120,7 @@ namespace ServerIntellectus
                 lock(lClientes)
                 {
                     lClientes.Add(cliente);
+                    Utileria.ImprimirConColor("Conexion entrante desde IP: " + ((IPEndPoint)cliente.socketCliente.RemoteEndPoint).Address.ToString(), ConsoleColor.Yellow);
                 }
             }
         }
