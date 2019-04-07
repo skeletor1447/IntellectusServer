@@ -19,7 +19,7 @@ namespace ServerIntellectus
         private bool boolObtenerPeticiones;
         private Thread threadEscucharConexionesEntrantes;
         private Thread threadObtenerPeticiones;
-        public Server(String IP,int puerto)
+        public Server(int puerto)
         {
             boolEscucharConexionesEntrantes = true;
             boolObtenerPeticiones = true;
@@ -29,7 +29,7 @@ namespace ServerIntellectus
 
             try
             {
-                localEndPoint = new IPEndPoint(IPAddress.Parse(IP), puerto);
+                localEndPoint = new IPEndPoint(IPAddress.Any, puerto);
             }
             catch(Exception ex)
             {

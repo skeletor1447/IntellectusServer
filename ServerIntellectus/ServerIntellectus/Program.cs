@@ -16,9 +16,29 @@ namespace ServerIntellectus
             ImprimirConColor("                             Servidor Intellectus              ", ConsoleColor.Blue);
             ImprimirConColor("                                 Version " + version, ConsoleColor.White);
 
-            Server server = new Server("192.168.1.71",8001);
-
-            server.Iniciar();
+            if (args.Length > 0)
+            {
+                try
+                {
+                    int puerto = int.Parse(args[0]);
+                    try
+                    {
+                        ImprimirConColor("Iniciando servidor...", ConsoleColor.Green);
+                        Server server = new Server(puerto);
+                        server.Iniciar();
+                        ImprimirConColor("Servidor iniciado correctamente.", ConsoleColor.Green);
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Puerto no valido, ingrese por parametro el puerto");
+                }
+                
+            }
 
             Console.ReadLine();
         }
