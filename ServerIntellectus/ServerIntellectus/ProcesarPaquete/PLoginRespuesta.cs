@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,8 +21,23 @@ namespace ServerIntellectus.ProcesarPaquete
         public void ProcesarPaquete()
         {
             //logica logueo de usuario
+            IntellectusMensajes.LoginRespuesta loginRespuesta = null;
+            try
+            {
+                Server.lClientes.Where(x => x.ID == LoginPeticion.ID).Single();
+                loginRespuesta = new IntellectusMensajes.LoginRespuesta() { VERSION = LoginPeticion.VERSION, ID = LoginPeticion.ID, ESTADO = IntellectusMensajes.EstadoLogin.NOLOGUEADO, Mensaje = "No se ha podido loguear, ya existe un usuario conectado con esa cuenta." };
 
-            IntellectusMensajes.LoginRespuesta loginRespuesta = new IntellectusMensajes.LoginRespuesta() { VERSION = 1, ID = 1001, ESTADO = IntellectusMensajes.EstadoLogin.NOLOGUEADO, Mensaje = "no se ha podido loguear, ya existe un cliente conectado." };
+                Utileria.ImprimirConColor("Intento de logueo ya existente desde IP: " + ((IPEndPoint)Cliente.socketCliente.RemoteEndPoint).Address.ToString(), ConsoleColor.Red);
+            }
+            catch
+            {
+                loginRespuesta = new IntellectusMensajes.LoginRespuesta() { VERSION = LoginPeticion.VERSION, ID = LoginPeticion.ID, ESTADO = IntellectusMensajes.EstadoLogin.LOGUEADO, Mensaje = "Usuario logueado con éxito" };
+                Cliente.ID = LoginPeticion.ID;
+                Cliente.Estado = Cliente.EstadoCliente.LOGUEADO;
+
+                Utileria.ImprimirConColor("Usuario logueado ID: "+LoginPeticion.ID+" desde IP: " + ((IPEndPoint)Cliente.socketCliente.RemoteEndPoint).Address.ToString(), ConsoleColor.Green);
+            }
+            
 
             String mensajeAEnviar = JsonConvert.SerializeObject(loginRespuesta);
 

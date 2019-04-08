@@ -14,7 +14,7 @@ namespace ServerIntellectus
     {
         public Socket SocketServer;
         private IPEndPoint localEndPoint;
-        private List<Cliente> lClientes;
+        public static List<Cliente> lClientes;
         private bool boolEscucharConexionesEntrantes;
         private bool boolObtenerPeticiones;
         private Thread threadEscucharConexionesEntrantes;
