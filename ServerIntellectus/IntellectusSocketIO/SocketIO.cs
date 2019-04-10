@@ -64,5 +64,30 @@ namespace IntellectusSocketIO
             if (bytesLeidosTotal != longitud)
                 throw new Exception("Error al completar la escritura de los bytes, posible desconexion.");
         }
+        /// <summary>
+        /// Recibe un paquete completo del servidor.
+        /// </summary>
+        /// <param name="socket">Socket local que recibe un paquete del servidor.</param>
+        /// <returns></returns>
+        public static String ObtenerPaqueteCompleto(Socket socket)
+        {
+            int longitud = ReadInt(socket);
+            String mensajeRespuesta = IntellectusSocketIO.SocketIO.ReadString(socket, longitud);
+
+            return mensajeRespuesta;
+        }
+        /// <summary>
+        /// Envia un paquete completo al servidor
+        /// </summary>
+        /// <param name="socket">Socket remoto, donde se enviará el paquete.</param>
+        /// <param name="paquete">Entero que indica que tipo de paquete será enviado.</param>
+        /// <param name="mensaje">String que se será enviado como cuerpo del paquete.</param>
+        public static void EnviarPaqueteCompleto(Socket socket,int paquete, String mensaje)
+        {
+            WriteInt(socket, paquete);
+            byte[] buffer = Encoding.UTF8.GetBytes(mensaje);
+            WriteInt(socket, buffer.Length);
+            Write(socket, buffer.Length, buffer);
+        }
     }
 }
