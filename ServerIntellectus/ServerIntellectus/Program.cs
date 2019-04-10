@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rollbar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,6 +15,9 @@ namespace ServerIntellectus
 
         static void Main(string[] args)
         {
+            RollbarLocator.RollbarInstance.Configure(new RollbarConfig("fe9f3e0934734bae922fb1cb33fc1d4b"));
+            RollbarLocator.RollbarInstance.Info("Rollbar is configured properly.");
+
             Utileria.ImprimirConColor("                             Servidor Intellectus              ", ConsoleColor.Blue);
             Utileria.ImprimirConColor("                                 Version " + version, ConsoleColor.White);
 
