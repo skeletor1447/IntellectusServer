@@ -29,7 +29,7 @@ namespace ServerIntellectus
 
             try
             {
-                localEndPoint = new IPEndPoint(Utileria.ObtenerIPV4(), puerto);
+                localEndPoint = new IPEndPoint(/*Utileria.ObtenerIPV4()*/IPAddress.Parse("127.0.0.1"), puerto);
             }
             catch(Exception ex)
             {

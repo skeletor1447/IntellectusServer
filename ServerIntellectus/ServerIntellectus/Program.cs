@@ -50,8 +50,7 @@ namespace ServerIntellectus
 
             Console.ReadLine();
         }
-
-
+        
         
     }
 }
