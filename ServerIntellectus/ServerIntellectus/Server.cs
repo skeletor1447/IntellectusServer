@@ -40,7 +40,6 @@ namespace ServerIntellectus
             {
                 SocketServer.Bind(localEndPoint);
                 SocketServer.Listen((int)SocketOptionName.MaxConnections);
-               
                 
             }
             catch(Exception ex)
