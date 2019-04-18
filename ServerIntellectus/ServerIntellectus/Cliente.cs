@@ -9,7 +9,7 @@ namespace ServerIntellectus
 {
     public class Cliente
     {
-        public enum EstadoCliente { LOGUEADO, NOLOGUEADO }
+        public enum EstadoCliente { LOGUEADO, NOLOGUEADO, DESCONECTADO}
         public Socket socketCliente { get; set; } 
         public EstadoCliente Estado { get; set; }
         public int ID { get; set; }

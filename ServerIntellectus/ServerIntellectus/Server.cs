@@ -19,6 +19,7 @@ namespace ServerIntellectus
         private bool boolObtenerPeticiones;
         private Thread threadEscucharConexionesEntrantes;
         private Thread threadObtenerPeticiones;
+        private Thread threadEnviarVerificacionConexion;
         public Server(int puerto)
         {
             boolEscucharConexionesEntrantes = true;
@@ -53,11 +54,42 @@ namespace ServerIntellectus
         {
             threadEscucharConexionesEntrantes = new Thread(this.EscucharConexionesEntrantes);
             threadObtenerPeticiones = new Thread(this.ObtenerPeticiones);
+            threadEnviarVerificacionConexion = new Thread(this.EnviarVerificacionConexion);
             threadEscucharConexionesEntrantes.Start();
             threadObtenerPeticiones.Start();
+            threadEnviarVerificacionConexion.Start();
             
         }
         
+
+        private void EnviarVerificacionConexion()
+        {
+            while(true)
+            {
+                Thread.Sleep(10000);
+
+                IntellectusMensajes.VerificacionConexionRespuesta vcr = new IntellectusMensajes.VerificacionConexionRespuesta();
+                vcr.ESTADO = "Verificando";
+                vcr.VERSION = 1;
+                lock(Server.lClientes)
+                {
+                    String mensaje = JsonConvert.SerializeObject(vcr);
+                    foreach (var cliente in lClientes)
+                    {
+                        try
+                        {
+                            IntellectusSocketIO.SocketIO.EnviarPaqueteCompleto(cliente.socketCliente, (int)IntellectusMensajes.Paquete.VerificacionConexionRespuesta, mensaje);
+                        }
+                        catch(SocketException se)
+                        {
+                            Console.WriteLine("cliente desconectado");
+                            cliente.Estado = Cliente.EstadoCliente.DESCONECTADO;
+                        }
+                    }
+                }
+                
+            }
+        }
 
         private void ObtenerPeticiones()
         {
@@ -65,9 +97,10 @@ namespace ServerIntellectus
             {
                 lock(lClientes)
                 {
+                    lClientes.RemoveAll(x => x.Estado == Cliente.EstadoCliente.DESCONECTADO);
                     foreach(var cliente in lClientes)
                     {
-                        if(cliente.socketCliente.Available > 0)
+                        if(cliente.socketCliente.Available > 0 )
                         {
                             try
                             {
@@ -79,13 +112,14 @@ namespace ServerIntellectus
                             }
                             catch(SocketException se)//cliente desconectado
                             {
-                                lClientes.Remove(cliente);
+                                cliente.Estado = Cliente.EstadoCliente.DESCONECTADO;
                             }
                             catch(Exception ex)
                             {
                                 Console.WriteLine(ex.Message);
                             }
                         }
+                        
                     }
                 }
             }
