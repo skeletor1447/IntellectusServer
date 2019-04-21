@@ -97,7 +97,26 @@ namespace ServerIntellectus
             {
                 lock(lClientes)
                 {
+                    ServidorServicios.ServidorServicesClient servidorServicesClient = null;
+                    try
+                    {
+                        servidorServicesClient = new ServidorServicios.ServidorServicesClient();
+                    }
+                    catch(Exception es)
+                    {
+                        Console.WriteLine(es.Message);
+                        Console.WriteLine("Es necesario reiniciar el servidor");
+                        return;
+                    }
+                    List<Cliente> listaARemover = lClientes.Where(x => x.Estado == Cliente.EstadoCliente.DESCONECTADO).ToList();
+
+                    foreach (var cliente in listaARemover)
+                    {
+                        bool echo = servidorServicesClient.OnlineAOffline(cliente.ID);
+                    }
+
                     lClientes.RemoveAll(x => x.Estado == Cliente.EstadoCliente.DESCONECTADO);
+                    
                     foreach(var cliente in lClientes)
                     {
                         if(cliente.socketCliente.Available > 0 )
