@@ -11,5 +11,7 @@ namespace IntellectusMensajes
         public long IDRemitente { get; set; }
         public byte[] Mensaje { get; set; }
         public TipoMensaje TipoMensaje { get; set; }
+        public bool Recibido { get; set; }
+        public String Razon { get; set; }
     }
 }

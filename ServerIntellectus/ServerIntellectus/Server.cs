@@ -155,6 +155,9 @@ namespace ServerIntellectus
                 case (int)IntellectusMensajes.Paquete.LOGIN:
                     IntellectusMensajes.LoginPeticion loginPeticion = JsonConvert.DeserializeObject<IntellectusMensajes.LoginPeticion>(mensaje);
                     return new ProcesarPaquete.PLoginRespuesta(cliente, loginPeticion);
+                case (int)IntellectusMensajes.Paquete.MensajePrivado:
+                    IntellectusMensajes.MensajePrivado mensajePrivado = JsonConvert.DeserializeObject<IntellectusMensajes.MensajePrivado>(mensaje);
+                    return new ProcesarPaquete.PMensajePrivadoRespuesta(cliente, mensajePrivado);
                     
             }
 
